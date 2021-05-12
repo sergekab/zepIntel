@@ -1,0 +1,54 @@
+{% extends "base.html" %} 
+
+
+{% block PageTitle %}
+    Editer Client
+{% endblock %}
+
+{% block Content%}
+<div class="col-md-6">
+    <div class="container" style="width: 400px; margin-left: 360px; border: 1px solid;">
+            <form method="POST" action="/update/{{clientById.id}}">
+                {% csrf_token %}
+                <div class="form-group mx-sm-2 mb-2" style="margin-top: 20px;">
+                    <input type="text" name="nom_cl" value={{clientById.nom_cl}} class="form-control" placeholder="Nom">               
+                </div>
+            
+                <div class="form-group mx-sm-2 mb-2">
+                    <input type="text" name="prenom_cl" class="form-control" value={{clientById.prenom_cl}} placeholder="Prénom(s)">               
+                </div>
+            
+                <div class="form-group">
+                    <select class="form-control" name="sexe_cl">
+                        <option selected>Sexe</option>
+                        <option value="Masculin">Masculin</option>
+                        <option value="Masculin">Feminin</option>
+                    </select>   
+                </div>
+            
+                <div class="form-group mx-sm-2 mb-2">
+                    <input type="text" name="email_cl" class="form-control" value={{clientById.email_cl}} placeholder="Email">               
+                </div>
+            
+                <div class="form-group mx-sm-2 mb-2">
+                    <input type="text" name="contact_cl" value={{clientById.phone_cl}} class="form-control" placeholder="Téléphone">               
+                </div>
+                
+                
+
+                <div class="form-group">
+                    <input type="date" class="form-control form-control-sm" name="date">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button btn-submit" name="saveBtn" id="saveBtn" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
+
+

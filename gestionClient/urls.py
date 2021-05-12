@@ -16,6 +16,8 @@ urlpatterns = [
 
     path('exportExcel', clientAjour.exportXsl, name='exportExcel'),
     path('exportExcel', clientNAjour.exportXsl, name='client_non_a_jour'),
+     path('edit/<int:id>', home.editCustomer, name='edit'),
     path('delete/<int:id>', home.deleteCustomer, name='delete'),
     path('modifier_statut/<int:id>', home.modifierStatut, name='modifier_statut'),
+    path('update/<int:id>', home.modifierStatut, name='update'),
 ]

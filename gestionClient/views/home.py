@@ -77,7 +77,24 @@ def addCustomer(request):
 
 
 def editCustomer(request, id):
-    pass
+    data = {}
+    clientById = Client.objects.get(pk=id)
+    data['clientById'] = clientById
+    
+    return render(request, 'edit.html', data)
+
+def update(request, id):
+
+    nom = request.POST.get('nom_cl')
+    prenom = request.POST.get('prenom_cl')
+    sexe = request.POST.get('sexe_cl')
+    email = request.POST.get('email_cl')
+    phone = request.POST.get('contact_cl')
+    date = request.POST.get('date')
+
+    clientById = Client.objects.get(pk=id)
+    print(nom)
+
     return redirect('homepage')
 
 
