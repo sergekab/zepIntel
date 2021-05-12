@@ -14,6 +14,7 @@ class Login(View):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
+        utilisateur = Utilisateur.get_utilisateur_by_name(username)
 
         error_message = None
 
