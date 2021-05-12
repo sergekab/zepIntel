@@ -1,0 +1,206 @@
+{% extends "base.html" %} 
+
+
+{% block PageTitle %}
+    Tous mes clients
+{% endblock %}
+
+{% block Content %}
+<div class="col-md-12">
+    <div class="content-panel mt">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <div>
+                    <h4>Liste des Clients</h4>
+                    
+                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                        role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">
+                                        Nouveau Client
+                                    </h5>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="m-2 p-3">
+                                        <form method="POST" action="/saveCl">
+                                            {% csrf_token %}
+
+                                            <div class="form-group mx-sm-2 mb-2">
+                                                <input type="text" name="nom_cl" class="form-control" placeholder="Nom">               
+                                            </div>
+                                        
+                                            <div class="form-group mx-sm-2 mb-2">
+                                                <input type="text" name="prenom_cl" class="form-control" placeholder="Prénom(s)">               
+                                            </div>
+                                        
+                                            <div class="form-group">
+                                                <select class="form-control" name="sexe_cl">
+                                                    <option selected>Sexe</option>
+                                                    <option value="Masculin">Masculin</option>
+                                                    <option value="Masculin">Feminin</option>
+                                                </select>   
+                                            </div>
+                                        
+                                            <div class="form-group mx-sm-2 mb-2">
+                                                <input type="text" name="email_cl" class="form-control" placeholder="Email">               
+                                            </div>
+                                        
+                                            <div class="form-group mx-sm-2 mb-2">
+                                                <input type="text" name="contact_cl" class="form-control" placeholder="Téléphone">               
+                                            </div>
+                                            
+                                            
+
+                                            <div class="form-group">
+                                                <input type="date" class="form-control form-control-sm" name="date">
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                <button type="button btn-submit" name="saveBtn" id="saveBtn" class="btn btn-primary">Enregistrer</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button"  class="btn btn-primary pull-right"  data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"
+                    style="margin-top: -37px; margin-right: 160px;">Importer</button>     
+
+                    <a class="btn btn-primary pull-right"style="margin-top: -37px; margin-right: 70px;" href="/exportExcel">Exporter</a>
+
+                    
+                    
+                    <button type="button"  class="btn btn-primary pull-right"  data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"
+                    style="margin-top: -37px; margin-right: 10px;"><i class="fa fa-plus-circle" style="padding-right: 10px;"></i></button>
+
+                
+                <hr>
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Sexe</th>
+                    <th>Téléphone</th>
+                    <th>Email</th>
+                    <th>Statut</th>
+                    <th>Date de Souscription</th>
+                    <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for clients in page_obj %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{clients.nom_cl}}</td>
+                        <td>{{clients.prenom_cl}}</td>
+                        <td>{{clients.sexe_cl}}</td>
+                        <td>{{clients.phone_cl}}</td>
+                        <td>{{clients.email_cl}}</td>
+                        {%if clients.statut_cl == True%}
+                            <td>A jour</td>
+                        {%endif%}
+                        {%if clients.statut_cl == False%}
+                            <td>Pas à jour</td>
+                        {%endif%}
+
+                        <td>{{clients.date}}</td>
+
+                        
+                        <td>
+                            
+                            <button type="button" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#exampleModal1" data-whatever="@mdo"><i class="fa fa-pencil" style="padding-right: 10px;"></i></button>
+
+                            <a href="/modifier_statut/{{clients.id}}" class="btn btn-secondary btn-xs" data-toggle="tooltip" data-placement="right" 
+                            title="modifier statut"><i class="fa fa-toggle-off "></i></a>
+
+                            <a href="/delete/{{clients.id}}" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="right" 
+                            title="Supprimer"><i class="fa fa-trash-o "></i></a>
+
+                            
+
+                        </td>
+                    </tr>
+                    
+                    {%endfor%}
+                </tbody>
+                
+            </table>
+
+        </div>
+        <div class="" style="margin-left: 10px;">
+            Page {{page_obj.number}} sur {{page_obj.paginator.num_pages}}
+        </div>
+        <div class="pull-right" style="margin-right: 20px;">
+            <ul class="pagination align-right float-right">
+                {% if page_obj.has_previous %}
+                <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Précédent</a></li>
+                {% endif %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" 
+                        href="?page={{page_obj.next_page_number}}">Suivant</a></li>
+                    <li class="page-item"><a class="page-link" 
+                        href="?page={{page_obj.paginator.num_pages }}">&raquo;</a></li>
+                {% endif %}
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('#saveBtn').click(function(){
+            var nom_cl = $('#nom_cl').val();
+            var prenom_cl = $('#prenom_cl').val();
+            var email_cl = $('#email_cl').val();
+            var contact_cl = $('#contact_cl').val();
+            var date = $('#date').val();
+
+            if(nom_cl!='' && prenom_cl != '' && email_cl != '' && contact_cl!='' && date!='')
+            {
+                $.ajax({
+                    url:"/saveCl",
+                    method:"POST",
+                    data:{
+                        nom_cl:nom_cl,
+                        prenom_cl :prenom_cl,
+                        email_cl: email_cl,
+                        contact_cl: contact_cl,
+                        date: date,
+                    },
+                    success:function(data){
+                        if(data == 'error'){
+                            alert("Erreur");
+                        }
+                        else
+                        {
+                            $('#exampleModal').hide();
+                            location.reload();
+                        }
+                        
+                    }
+                })
+            }
+            else
+            {
+                alert("Tous les champs en étoilés sont obligatoires!");
+            }
+        });
+    });
+</script>
+
+{% endblock %}
+
+

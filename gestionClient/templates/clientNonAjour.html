@@ -1,0 +1,88 @@
+{% extends "base.html" %} 
+
+
+{% block PageTitle %}
+    Tous mes clients non à jour
+{% endblock %}
+
+{% block Content %}
+<div class="col-md-12">
+    <div class="content-panel mt">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <div>
+                    <h4>Liste des Clients</h4>
+                    
+                <a class="btn btn-primary pull-right"style="margin-top: -37px; margin-right: 70px;" href="/exportExcel">Exporter</a>
+                <hr>
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Sexe</th>
+                    <th>Téléphone</th>
+                    <th>Email</th>
+                    <th>Date de Souscription</th>
+                    <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for clients in page_obj %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{clients.nom_cl}}</td>
+                        <td>{{clients.prenom_cl}}</td>
+                        <td>{{clients.sexe_cl}}</td>
+                        <td>{{clients.phone_cl}}</td>
+                        <td>{{clients.email_cl}}</td>
+                        <td>{{clients.date}}</td>
+
+                        
+                        <td>
+                            <a href="/modifierDev/{{devoir.id}}" class="btn btn-primary btn-xs " data-toggle="tooltip" data-placement="right" 
+                            title="Modifier"><i class="fa fa-pencil"></i></a>
+
+                            <a href="/modifier/{{clients.id}}" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="right" 
+                            title="modifier"><i class="fa fa-trash-o "></i></a>
+
+                            <a href="/delete/{{clients.id}}" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="right" 
+                            title="Supprimer"><i class="fa fa-trash-o "></i></a>
+
+                            
+
+                        </td>
+                    </tr>
+                    
+                    {%endfor%}
+                </tbody>
+                
+            </table>
+            
+
+        </div>
+        <div class="" style="margin-left: 10px;">
+            Page {{page_obj.number}} sur {{page_obj.paginator.num_pages}}
+        </div>
+        <div class="pull-right" style="margin-right: 20px;">
+            <ul class="pagination align-right float-right">
+                {% if page_obj.has_previous %}
+                <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Précédent</a></li>
+                {% endif %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" 
+                        href="?page={{page_obj.next_page_number}}">Suivant</a></li>
+                    <li class="page-item"><a class="page-link" 
+                        href="?page={{page_obj.paginator.num_pages }}">&raquo;</a></li>
+                {% endif %}
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

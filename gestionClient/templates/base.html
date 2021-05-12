@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    {% load static %}
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/css/style-responsive.css' %}">
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-datetimepicker/datertimepicker.css' %}">
+
+
+</head>
+
+
+<body>
+    <section id="container">
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+              <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            </div>
+            <!--logo start-->
+            <a href="/homepage" class="logo"><b>CUSTOMER<span>GEST</span></b></a>
+            <!--logo end-->
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                  <li><a class="logout" href="/logout">Se Deconnecter</a></li>
+                </ul>
+              </div>
+        </header>
+
+        <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse">
+          <!-- sidebar menu start-->
+          <ul class="sidebar-menu" id="nav-accordion">
+            
+            <li class="mt">
+              <a href="/homepage">
+
+                <span>Tous mes clients</span>
+              </a>
+            </li>
+
+            <li class="mt">
+                <a href="/client_a_jour">
+
+                  <span>Clients à jour</span>
+                </a>
+            </li>
+
+            <li class="mt">
+                <a href="/client_non_a_jour">
+                  <span>Clients non à jour</span>
+                </a>
+            </li>
+            
+          </ul>
+          <!-- sidebar menu end-->
+        </div>
+      </aside>
+      <!--sidebar end-->
+
+      <section id="main-content">
+        <section class="wrapper">
+          <ol class="breadcrumb mb-4 mt">
+              <li class="breadcrumb-item"><a href="/homepage">Accueil</a></li>
+              <li class="breadcrumb-item active">{% block PageTitle %}{% endblock %}</li>
+          </ol>
+          
+          <div class="row">
+            {% block Content %}{% endblock %}
+              
+          </div>
+
+
+        </section>
+              
+        <!-- /wrapper -->
+    </section>
+
+
+
+    <script type="text/javascript" src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/jquery.scrollTo.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/jquery.nicescroll.js' %}"></script>
+    <script class="include" type="text/javascript" src="{% static 'lib/jquery.dcjqaccordion.2.7.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/common-scripts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'lib/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/bootstrap-daterangepicker/date.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/bootstrap-timepicker/js/bootstrap-timepicker.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lib/bootstrap-daterangepicker/moment.min.js' %}"></script>
+    <script src="{% static 'lib/advanced-form-components.js' %}"></script>
+</body>
+
+
+</html>
