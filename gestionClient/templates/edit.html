@@ -11,15 +11,15 @@
             <form method="POST" action="/update/{{clientById.id}}">
                 {% csrf_token %}
                 <div class="form-group mx-sm-2 mb-2" style="margin-top: 20px;">
-                    <input type="text" name="nom_cl" value={{clientById.nom_cl}} class="form-control" placeholder="Nom">               
+                    <input type="text" name="nom" value="{{clientById.nom_cl}}" class="form-control" placeholder="Nom">               
                 </div>
             
                 <div class="form-group mx-sm-2 mb-2">
-                    <input type="text" name="prenom_cl" class="form-control" value={{clientById.prenom_cl}} placeholder="Prénom(s)">               
+                    <input type="text" name="prenom" class="form-control" value="{{clientById.prenom_cl}}" placeholder="Prénom(s)">               
                 </div>
             
                 <div class="form-group">
-                    <select class="form-control" name="sexe_cl">
+                    <select class="form-control" name="sexe">
                         <option selected>Sexe</option>
                         <option value="Masculin">Masculin</option>
                         <option value="Masculin">Feminin</option>
@@ -27,11 +27,11 @@
                 </div>
             
                 <div class="form-group mx-sm-2 mb-2">
-                    <input type="text" name="email_cl" class="form-control" value={{clientById.email_cl}} placeholder="Email">               
+                    <input type="text" name="email" class="form-control" value="{{clientById.email_cl}}" placeholder="Email">               
                 </div>
             
                 <div class="form-group mx-sm-2 mb-2">
-                    <input type="text" name="contact_cl" value={{clientById.phone_cl}} class="form-control" placeholder="Téléphone">               
+                    <input type="text" name="contact" value="{{clientById.phone_cl}}" class="form-control" placeholder="Téléphone">               
                 </div>
                 
                 

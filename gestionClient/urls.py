@@ -19,5 +19,7 @@ urlpatterns = [
      path('edit/<int:id>', home.editCustomer, name='edit'),
     path('delete/<int:id>', home.deleteCustomer, name='delete'),
     path('modifier_statut/<int:id>', home.modifierStatut, name='modifier_statut'),
-    path('update/<int:id>', home.modifierStatut, name='update'),
+    path('update/<int:id>', home.update, name='update'),
+
+    path('upload', home.importXls, name='upload'),
 ]

@@ -6,6 +6,10 @@ from gestionClient.models.client import Client
 
 from django.core.paginator import Paginator
 import xlwt
+from .resources import ClientResource
+#from gestionClient.resources.py import ClientResource
+from tablib import Dataset
+
  
 
 class Index(View):
@@ -85,16 +89,26 @@ def editCustomer(request, id):
 
 def update(request, id):
 
-    nom = request.POST.get('nom_cl')
-    prenom = request.POST.get('prenom_cl')
-    sexe = request.POST.get('sexe_cl')
-    email = request.POST.get('email_cl')
-    phone = request.POST.get('contact_cl')
+    nom = request.POST.get('nom')
+    prenom = request.POST.get('prenom')
+    sexe = request.POST.get('sexe')
+    email = request.POST.get('email')
+    phone = request.POST.get('contact')
     date = request.POST.get('date')
 
-    clientById = Client.objects.get(pk=id)
-    print(nom)
+    print(nom, prenom, sexe, email, phone, date)
 
+    clientById = Client.objects.get(pk=id)
+    
+    clientById.nom_cl = str(nom),
+    # clientById.prenom_cl = str(prenom),
+    # clientById.sexe_cl = str(sexe),
+    # clientById.email_cl = str(email),
+    # clientById.phone_cl = str(phone),
+    # clientById.date = str(date)
+    
+    #clientById.save()
+    print(str(clientById.nom_cl))
     return redirect('homepage')
 
 
@@ -127,3 +141,36 @@ def exportXsl(request):
 
       
     return response
+
+def importXls(request):
+
+    if request.method == "POST":
+        import_file = request.FILES['myfile']
+        from xlrd import open_workbook
+        wb = open_workbook(file_contents=import_file.read())
+        data = list()
+        for s in wb.sheets():
+            print ('Sheet:', s.name)
+            for row in range(s.nrows):
+                if row > 0:
+                    values = []
+                    for column in range(s.ncols):
+                        values.append(str(s.cell(row, column).value))
+                    data.append(values)                   
+                    for element in data:
+                        isExist = Client.isExist(element[5])
+
+                        if isExist == False:
+                            client = Client(
+                                nom_cl=element[1],
+                                prenom_cl=element[2],
+                                sexe_cl=element[3],
+                                phone_cl=element[4],
+                                email_cl=element[5],
+                                date = element[6],
+                                statut_cl=element[7]
+                            )
+                            client.clientSave()
+                        else:
+                            pass
+    return redirect('homepage')
